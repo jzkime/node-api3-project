@@ -27,7 +27,6 @@ router.post('/', validateUser, (req, res) => {
   Users.insert(req.userName).then(usr => {
     res.json(usr);
   }).catch((err) => {
-    console.log(err)
     res.send(err)
   })
 });
@@ -36,6 +35,10 @@ router.put('/:id', validateUserId, validateUser, (req, res) => {
   // RETURN THE FRESHLY UPDATED USER OBJECT
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid
+Users.update(req.params.id, req.userName).then(change => {
+  console.log(change)
+  res.json(change)
+}).catch(err => res.send(err))
 
 });
 
