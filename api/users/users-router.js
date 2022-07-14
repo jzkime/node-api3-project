@@ -39,12 +39,14 @@ Users.update(req.params.id, req.userName).then(change => {
   console.log(change)
   res.json(change)
 }).catch(err => res.send(err))
-
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateUserId, (req, res) => {
   // RETURN THE FRESHLY DELETED USER OBJECT
   // this needs a middleware to verify user id
+  Users.remove(req.user.id).then(del => {
+    res.json(req.user)
+  }).catch(err => res.send(err))
 });
 
 router.get('/:id/posts', (req, res) => {
